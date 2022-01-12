@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from fastai.vision.all import *
 import os
 import matplotlib.pyplot as plt
@@ -58,8 +60,7 @@ kwargs = {'num_workers': 0} if not args.cuda else {}
 
 def run(args, kwargs):
     args.model_signature = str(datetime.datetime.now())[0:19]
-
-    model_name = 'model' + '_' + args.model_signature
+    model_name = 'model' + '_' + str(args.model_signature)
 
     #### Set directories for saving
     model_dir = args.models_folder + 'results' + '_' + 'bs-' + str(args.batch_size) + '_' + 'epochs-' + str(args.epochs) + '_' + 'imgsize-' + str(args.image_size) + '_' + 'augmentations-' + str(args.augmentations) + '_pretrained-' + str(args.pretrained) + '/'
@@ -93,9 +94,7 @@ def run(args, kwargs):
                       splitter=splitter,
                       item_tfms=item_tfms,
                       batch_tfms=batch_tfms)
-
     dls = block.dataloaders(path, bs=args.batch_size, num_workers=kwargs['num_workers'])
-
     # move dataloader to cuda
     if args.cuda:
         dls.cuda()
@@ -111,8 +110,8 @@ def run(args, kwargs):
 
     # load pretrained model from paper
     if args.load_model_from_paper:
-        learn.load(f'{os.getcwd()}/model')
-
+        learn.load(f'{os.getcwd()}/models/cnn-regressor/model')
+        
     # train model
     if args.training:
         print('Starting Training')
@@ -140,9 +139,8 @@ def run(args, kwargs):
         f.close()
 
         # create boxplot of errors
-        plt.boxplot(abs(res[0].view((args.batch_size)) - res[1]), labels=['CNN'])
-        plt.savefig(f'{model_dir}{model_name}.png')
-        plt.close()
-
+        #plt.boxplot(abs(res[0].view((args.batch_size)) - res[1]), labels=['CNN'])
+        #plt.savefig(f'{model_dir}{model_name}.png')
+        #plt.close()
 if __name__ == "__main__":
     run(args, kwargs)
