@@ -23,7 +23,7 @@ Python3.6
 - tabulate~=0.8.9
 
 ## Usage
-On Main.ipynb notebook the workflow which encompasses:
+On Main.ipynb notebook the workflow encompasses:
 - dataset splitting with randomizer.py
 - training with cnn_experiment.py
 - inference with evaluator.py
