@@ -6,3 +6,6 @@ xgboost~=1.0.2
 pandas~=1.0.3
 scikit-image~=0.16.2
 fastai~=2.2.5
+IPython[all] # add jupyter to other dependencies
+openpyxl # to convert pandas dataframes into excel files
+tabulate
